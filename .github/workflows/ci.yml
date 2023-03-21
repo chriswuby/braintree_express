@@ -1,0 +1,33 @@
+name: Braintree Node Example
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: ['16', '18']
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - run: npm ci
+      - run: npm run test:unit
+      - run: npm start & sleep 3 && npm run test:integration
+        env:
+          BT_ENVIRONMENT: ${{ secrets.BT_ENVIRONMENT }}
+          BT_MERCHANT_ID: ${{ secrets.BT_MERCHANT_ID }}
+          BT_PUBLIC_KEY: ${{ secrets.BT_PUBLIC_KEY }}
+          BT_PRIVATE_KEY: ${{ secrets.BT_PRIVATE_KEY }}
