@@ -1,1 +1,19 @@
-{"version":"0.0.0","name":"braintree_express_example","dependencies":{"body-parser":{"version":"1.20.1"},"braintree":{"version":"3.13.0"},"connect-flash":{"version":"0.1.1"},"debug":{"version":"4.3.4"},"dotenv":{"version":"16.0.3"},"express-session":{"version":"1.17.3"},"express":{"version":"4.18.2"},"http-errors":{"version":"2.0.0"},"less-middleware":{"version":"3.1.0"},"morgan-debug":{"version":"2.0.0"},"morgan":{"version":"1.10.0"},"pug":{"version":"3.0.2"},"serve-favicon":{"version":"2.5.0"}}}
+{
+  "version": "0.0.0",
+  "name": "braintree_express_example",
+  "dependencies": {
+    "body-parser": { "version": "1.20.1" },
+    "braintree": { "version": "3.13.0" },
+    "connect-flash": { "version": "0.1.1" },
+    "debug": { "version": "4.3.4" },
+    "dotenv": { "version": "16.0.3" },
+    "express-session": { "version": "1.17.3" },
+    "express": { "version": "4.18.2" },
+    "http-errors": { "version": "2.0.0" },
+    "less-middleware": { "version": "3.1.0" },
+    "morgan-debug": { "version": "2.0.0" },
+    "morgan": { "version": "1.10.0" },
+    "pug": { "version": "3.0.2" },
+    "serve-favicon": { "version": "2.5.0" }
+  }
+}
