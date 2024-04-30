@@ -25,8 +25,9 @@
     {
       authorization: clientToken,
       container: '#bt-dropin',
+      dataCollector:true,
       paypal: {
-        flow: 'vault',
+        flow: 'checkout',
       },
     },
     function (createErr, instance) {
@@ -42,6 +43,13 @@
 
           // Add the nonce to the form and submit
           document.querySelector('#nonce').value = payload.nonce;
+
+          // Add device data to the form
+          var deviceDataInput = document.createElement('input');
+          deviceDataInput.name = 'device_data';
+          deviceDataInput.type = 'hidden';
+          deviceDataInput.value = payload.deviceData;
+          form.appendChild(deviceDataInput);
           form.submit();
         });
       });

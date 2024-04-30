@@ -16,13 +16,32 @@ block content
 
         .bt-drop-in-wrapper
           #bt-dropin
-      script(src="https://js.braintreegateway.com/web/3.87.0/js/data-collector.min.js")
-      script(src="https://js.braintreegateway.com/web/dropin/1.42.0/js/dropin.min.js")
-      
-      input#nonce(type="hidden" name="payment_method_nonce")
-      button.button(type="submit")
-        span Test Transaction
+
+          input#nonce(type="hidden" name="payment_method_nonce")
+
+          button.button(type="submit")
+            span Test Transaction
+
+          script(src="https://js.braintreegateway.com/web/dropin/1.42.0/js/dropin.min.js")
+  
+          script.
+            braintree.dropin.create({
+              authorization: 'CLIENT_AUTHORIZATION',
+              container: '#bt-dropin',
+              dataCollector: true 
+              }, 
+              function (createErr, instance) 
+              {
+                if (createErr) { // Handle error in Drop-in creation
+                  return;
+                  }
+
+                button.addEventListener('click', function () {
+                  instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
+                    // Submit payload.nonce and payload.deviceData to your server
+                  });
+                });
+            });
 
   span(hidden id="client-token")=clientToken
-
   script(type="text/javascript", src="/javascript/demo.js")
