@@ -72,14 +72,45 @@ router.get('/checkouts/:id', (req, res) => {
 
 router.post('/checkouts', (req, res) => {
   // In production you should not take amounts directly from clients
-  const { amount, payment_method_nonce: paymentMethodNonce } = req.body; // Add device_data here
+  const { amount, payment_method_nonce: paymentMethodNonce, device_data: deviceDataFromTheClient } = req.body; // Add device_data here
 
   gateway.transaction
     .sale({
       amount,
       paymentMethodNonce,
-      options: { submitForSettlement: true },
-      deviceData: req.body.device_data // Pass deviceData to the transaction sale
+      deviceData: deviceDataFromTheClient, // Pass deviceData to the transaction sale
+      customer: {
+        firstName: "Drew",
+        lastName: "Smith",
+        company: "Braintree",
+        phone: "312-555-1234",
+        fax: "312-555-12346",
+        website: "http://www.example.com",
+        email: "drew@example.com"
+      },
+      billing: {
+        firstName: "Paul",
+        lastName: "Smith",
+        company: "Braintree",
+        streetAddress: "1 E Main St",
+        extendedAddress: "Suite 403",
+        locality: "Chicago",
+        region: "IL",
+        postalCode: "60622",
+        countryCodeAlpha2: "US"
+      },
+      shipping: {
+        firstName: "Jen",
+        lastName: "Smith",
+        company: "Braintree",
+        streetAddress: "1 E 1st St",
+        extendedAddress: "5th Floor",
+        locality: "Bartlett",
+        region: "IL",
+        postalCode: "60103",
+        countryCodeAlpha2: "US"
+      },
+      options: { submitForSettlement: true }
     })
     .then((result) => {
       const { success, transaction } = result;
